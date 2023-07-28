@@ -18,8 +18,8 @@ search_space:
 training_service:
   platform: local
   useActiveGpu: true
-# one trial use n GPUs
-trialGpuNumber: 1
+# how many trail will be run in one GPU
+# trialGpuNumber: 1
 trial_code_directory: .
 # trial command
 # trial should contain 3 special functions, see example in main.py
