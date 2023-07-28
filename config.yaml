@@ -1,0 +1,41 @@
+---
+# name
+experiment_name: nniTest-photo
+# specify the number of trials or runtime
+max_trial_number: 100
+# search space can also be written in a separate file and specified here
+# e.g., search_space: search_space.json
+search_space:
+  channel:
+    _type: choice
+    _value: [ 128, 256, 512, 1024 ]
+  lr:
+    _type: loguniform
+    _value: [ 0.0001, 0.1 ]
+  scaling_factor:
+    _type: uniform
+    _value: [ 1 ,4 ]
+training_service:
+  platform: local
+  useActiveGpu: true
+# one trial use n GPUs
+trialGpuNumber: 1
+trial_code_directory: .
+# trial command
+# trial should contain 3 special functions, see example in main.py
+trial_command: python main.py --dataset photo
+# parallel trial running in one machine
+trial_concurrency: 4
+# Tuner 
+tuner:
+  class_args:
+    optimize_mode: maximize
+  name: TPE
+# training_service:
+#   platform: remote
+#   machine_list:
+#     - host: connect.neimeng.seetacloud.com
+#       user: root
+#       port: 55595
+#       password: dBOno1EktR
+#       pythonPath: /usr/bin# note that for each GPU, one experiment will only open one trail on it# max_exec_duration: 1h
